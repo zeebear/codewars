@@ -12,3 +12,5 @@ def alphabet_position(text)
   end
   position.join(' ')
 end
+
+# next time try .ord ;)
