@@ -1,19 +1,14 @@
 LETTERS = ('a'..'z').to_a
 NUMBERS = (1..26).to_a
+@table = {}
+LETTERS.each_with_index do |letter, index|
+  @table[letter.to_sym] = NUMBERS[index]
+end
 
 def alphabet_position(text)
-  table = {}
-  LETTERS.each_with_index do |letter, index|
-    table[letter.to_sym] = NUMBERS[index]
+  position = text.downcase.split('').keep_if { |char| LETTERS.any?(char) }
+  position.map! do |char|
+    @table[char.to_sym].to_s
   end
-
-  position = ''
-  text.split('').map do |char|
-    unless text.split('').last == char
-      position += "#{table[char.to_sym]} " if LETTERS.any?(char)
-    else
-      position += "#{table[char.to_sym]}" if LETTERS.any?(char)
-    end
-  end
-  return position
+  position.join(' ')
 end
